@@ -5,10 +5,12 @@
 #include <stdio.h>
 
 int main(int argc, char *argv[]){
-    // There's no official max directions given
+    // There's no official max directions given, this is just the character count of the input
     int MAX_DIRECTIONS = 7001;
     // Start on ground floor
     int floor = 0;
+    // Index of direction when we first enter the basement
+    int basement = 0;
 
     // If no filename arg was passed, exit
     if(argc < 2){
@@ -31,9 +33,14 @@ int main(int argc, char *argv[]){
         else if(directions[i] ==  ')'){
             floor--;
         }
+        // Check for first time entering basement 
+        if(floor == -1 && basement == 0){
+            basement = i + 1; // Instructions are 1-based
+        }
     }
 
     printf("Destination: %d\n", floor);
+    printf("First enter basement: %d\n", basement);
 
     return 0;
 }
